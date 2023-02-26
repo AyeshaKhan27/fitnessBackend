@@ -1,21 +1,25 @@
 module.exports = (sequelize, DataTypes) => {
 
-    const User = sequelize.define("user", {
-        firstname:{
+    const Product = sequelize.define("product", {
+        category:{
             type: DataTypes.STRING,
             allowNull: false
         },
-        lastname:{
+        title:{
             type: DataTypes.STRING,
             allowNull: false
         },
         
-        email: {
+        brand: {
             type: DataTypes.STRING,
             allowNull: false
         },
-        password: {
-            type: DataTypes.STRING,
+        description:{
+            type: DataTypes.TEXT,
+            allowNull: false
+        },
+        price: {
+            type: DataTypes.INTEGER,
             allowNull: false
         }
        
@@ -23,6 +27,6 @@ module.exports = (sequelize, DataTypes) => {
     
     })
 
-    return User
+    return Product
 
 }

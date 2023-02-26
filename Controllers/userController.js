@@ -15,40 +15,41 @@ const addUser = async (req, res) => {
     return res.status(400).json({ error: error.array() });
   }
 
-  try{
-   User.findOne({where : {email : req.body.email}})
-   .then((users) =>{
-    
-   })
+  // try{
+  //  User.findOne({where : {email : req.body.email}})
+  //  .then((users) =>{
 
-  }
+  //  })
 
-  // try {
-  //   let user = await User.findOne({where : {email : req.body.email}});
-  //   if (user) {
-  //     res.status(400).send("exist");
-  //   } else {
-  //     const salt = await bcrypt.genSalt(10);
-  //     const secPass = await bcrypt.hash(req.body.password, salt);
-  //     user = await User.create({
-  //       username: req.body.username,
-  //       email: req.body.email,
-  //       password: secPass,
-  //     });
-  //     res.status(200).send(user);
-  //     console.log(user);
-  //     const data = {
-  //       user: {
-  //         id: user.id,
-  //       },
-  //     };
-  //     const authtoken = jwt.sign(data, JWT_SECRET);
-  //     res.json(authtoken);
-  //   }
-  // } catch (error) {
-  //   console.error(error.message);
-  //   res.status(500).send("some error occured");
   // }
+
+  try {
+    let user = await User.findOne({where : {email : req.body.email}});
+    if (user) {
+      res.status(400).send("exist");
+    } else {
+      const salt = await bcrypt.genSalt(10);
+      const secPass = await bcrypt.hash(req.body.password, salt);
+      user = await User.create({
+        firstname: req.body.firstname,
+        lastname: req.body.lastname,
+        email: req.body.email,
+        password: secPass,
+      });
+      res.status(200).json(user);
+      
+      const data = {
+        user: {
+          id: user.id,
+        },
+      };
+      const authtoken = jwt.sign(data, JWT_SECRET);
+      
+    }
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("some error occured");
+  }
 
   // const user = await User.create(info)
   // res.status(200).send(user)

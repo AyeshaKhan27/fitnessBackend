@@ -11,8 +11,11 @@ app.use(express.urlencoded({ extended: true }))
 const PORT = process.env.PORT || 4000
 
 
-const router = require('./routes/userRouter.js')
-app.use('/api/user', router)
+const userRouter = require('./routes/userRouter.js')
+app.use('/api/user', userRouter)
+
+const productRouter = require('./routes/productRouter.js')
+app.use('/api/product', productRouter)
 
 app.listen(PORT, () => {
     console.log(`server is running on port ${PORT}`)
